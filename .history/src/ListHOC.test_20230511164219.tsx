@@ -1,0 +1,39 @@
+import React from 'react';
+import { render, screen } from 'vitest';
+import { useGenerateRequest } from './hooks/useSwapi';
+import App, { withFetchPeople } from './App';
+
+    jest.mock('./hooks/useSwapi', () => ({
+    useGenerateRequest: jest.fn(),
+    }));
+
+    describe('App', () => {
+    const mockData = {
+        count: 3,
+        next: '',
+        previous: '',
+        results: [
+        { name: 'Person 1' },
+        { name: 'Person 2' },
+        { name: 'Person 3' },
+        ],
+    };
+
+    beforeEach(() => {
+        useGenerateRequest.mockReturnValue({
+        data: mockData,
+        isLoading: false,
+        isError: false,
+        });
+    });
+
+    it('renders the App component', () => {
+        const WrappedComponent = withFetchPeople(App);
+        render(<WrappedComponent type="people" title="People" />);
+
+        expect(screen.getByText('People')).toBeInTheDocument();
+        expect(screen.getByText('Person 1')).toBeInTheDocument();
+        expect(screen.getByText('Person 2')).toBeInTheDocument();
+        expect(screen.getByText('Person 3')).toBeInTheDocument();
+    });
+});

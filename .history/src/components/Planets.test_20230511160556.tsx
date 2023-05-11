@@ -1,0 +1,9 @@
+import { render, screen } from '@testing-library/react';
+import Planets from './Planets';
+
+test('renders People component', () => {
+    render(<Planets />);
+
+    const title = screen.getByText('Planets Here!');
+    expect(title).toBeDefined();
+});
