@@ -81,13 +81,13 @@ const App = ({
         </div>
         <Box>
             <div className='grid mx-auto gap-4 p-6 grid-cols-1 md:grid-cols-3'>
-            {data?.results && data?.results.length && data?.results.map((person: People, index: number) => (
+            {data?.results && data?.results.length > 0 && data?.results.map((person: People, index: number) => (
                 <Card type={type} data={person} key={index} />
             ))}
             </div>
             {isLoading && <div>Loading...</div>}
             {isError && <div>Error...</div>}
-            {data && data.count === 0 && <div>No results found</div>}
+            {(data && data.count === 0) ? <div>No results found</div> : ''}
 
             {data && data.count > 0 && (
             <Pagination
