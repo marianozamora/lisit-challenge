@@ -43,9 +43,9 @@ const generateDescription = (data: any) => {
     return description;
 }
 
-export const CardPeople = ({ data }: any) => {
+export const CardElement = ({ data }: any) => {
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card >
             <CardHeader
             avatar={
                 <Avatar sx={{ bgcolor: getRandomColor() }} aria-label="recipe">
@@ -118,14 +118,12 @@ export const CardPeople = ({ data }: any) => {
 const CardComponent = ({ data, type = 'people' }:any) => {
     const regex = /(\d+)/ig;
     const id = data.url.match(regex)[0];
-    console.log(id);
-
     return (
         <Link
             underline="none"
             href={`/${type}/${id}`}
         >
-            <CardPeople data={data} />
+            <CardElement data={data} />
         </Link>
 );
 };
