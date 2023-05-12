@@ -23,7 +23,7 @@ interface PeopleProps {
     query?: string;
     setQuery?: React.Dispatch<React.SetStateAction<string>>;
     title?: string;
-    type?: string;
+    type: string;
 }
 
 export const withFetchPeople = (WrappedComponent: any) => {
@@ -32,7 +32,7 @@ export const withFetchPeople = (WrappedComponent: any) => {
         const [query, setQuery] = React.useState('');
 
 
-        const { data, isLoading, isError } = useGenerateRequest({
+        const { data, isLoading, isError }  = useGenerateRequest({
             type: props.type,
             page: currentPage,
             query
@@ -73,7 +73,8 @@ const App = ({
             </Typography>
         </Box>
         <div>
-                <InputSearch onChange={(value) => {
+                <InputSearch
+                    onChange={(value) => {
                     setCurrentPage(1);
                     setQuery(value);
                 }}

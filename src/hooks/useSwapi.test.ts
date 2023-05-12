@@ -8,17 +8,40 @@ import {
     useGetAllResidents,
 } from './useSwapi';
 
-
 import axios from 'axios';
 
 vi.mock('axios');
-vi.mock('@tanstack/react-query',
-    () => ({
-        useQuery: vi.fn().mockImplementation(() => ({ data: {} })),
-    })
-);
-vi.mock('../api/swapi');
 
+
+
+vi.mock('../api/swapi', () => {
+    const actualApi = vi.importActual('../api/swapi');
+
+    return {
+        ...actualApi,
+        get: vi.fn().mockResolvedValue({
+            data: 'Mocked Data',
+        }),
+    };
+
+});
+
+
+
+vi.mock('@tanstack/react-query', () => ({
+    useQuery: vi.fn().mockReturnValue({
+        isLoading: false,
+        data: {
+            count: 1,
+            results: [{
+                id: '1',
+                name: 'Luke Skywalker',
+                height: '172',
+            }],
+        },
+        error: undefined,
+    }),
+}));
 
 describe('use Swapi Methods', () => {
     beforeEach(() => {
@@ -38,10 +61,13 @@ describe('use Swapi Methods', () => {
 
     describe('useGenerateRequestById', () => {
         it('should call useQuery with the correct arguments', () => {
-            renderHook(() => useGenerateRequestById({ type: 'people', id: 1 }));
+            renderHook(() => useGenerateRequestById({
+                type: 'people',
+                id: '1',
+            }));
 
             expect(useQuery).toHaveBeenCalledWith({
-                queryKey: ['people', 1],
+                queryKey: ['people', '1'],
                 queryFn: expect.any(Function),
             });
         });

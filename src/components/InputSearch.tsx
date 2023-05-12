@@ -17,7 +17,6 @@ interface Event {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-// const PartialProps = Partial<Props>;
 
 export default function InputSearch({
     onChange,
@@ -39,6 +38,7 @@ export default function InputSearch({
     return (
         <div>
             <Input
+                data-testid='search-input'
                 type="text"
                 value={searchTerm}
                 onChange={(event)=>handleChange(event)} 

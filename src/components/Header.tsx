@@ -5,10 +5,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 
 interface Props {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
     window?: () => Window;
 }
 
@@ -35,7 +31,7 @@ export default function Header(props: Props) {
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
         <Link to="/">
         <Typography variant="h6" sx={{ my: 2 }}>
-        Nerds Fundation
+        Nerds Fundation Inc
         </Typography>
         </Link>
         <Divider />
@@ -67,7 +63,8 @@ export default function Header(props: Props) {
                 <IconButton
                 color="inherit"
                 aria-label="open drawer"
-                edge="start"
+                        edge="start"
+                        data-testid='menu-button'
                 onClick={handleDrawerToggle}
                 sx={{ mr: 2, display: { sm: 'none' } }}
                 >
@@ -99,11 +96,11 @@ export default function Header(props: Props) {
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
                 ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
+                    keepMounted: true,
                 }}
                 sx={{
-                display: { xs: 'block', sm: 'none' },
-                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    display: { xs: 'block', sm: 'none' },
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
             >
                 {drawer}

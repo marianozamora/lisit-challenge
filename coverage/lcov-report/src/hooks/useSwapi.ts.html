@@ -108,7 +108,37 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,24 +187,39 @@
 import api from '../api/swapi';
 import { useQuery } from '@tanstack/react-query';
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >generateRequest({</span>type, page, query}: any) {
+interface IGenerateRequest {
+    type: string;
+    page: number;
+    query: string;
+}
+&nbsp;
+interface IGenerateRequestById {
+    type: string;
+    id: string;
+}
+&nbsp;
+interface IGetAllResidents {
+    residents: string[];
+}
+&nbsp;
+export async function <span class="fstat-no" title="function not covered" >generateRequest({</span>type, page, query}: IGenerateRequest) {
     const { data } = <span class="cstat-no" title="statement not covered" >await api.get(`${type}/?page=${page}&amp;&amp;search=${query}`);</span>
 <span class="cstat-no" title="statement not covered" >    return data;</span>
 }
 &nbsp;
-export function useGenerateRequest({ type = <span class="branch-0 cbranch-no" title="branch not covered" >'people', p</span>age = <span class="branch-0 cbranch-no" title="branch not covered" >1, q</span>uery = <span class="branch-0 cbranch-no" title="branch not covered" >'' }</span>: any) {
+export function useGenerateRequest({ type = <span class="branch-0 cbranch-no" title="branch not covered" >'people', p</span>age = <span class="branch-0 cbranch-no" title="branch not covered" >1, q</span>uery = <span class="branch-0 cbranch-no" title="branch not covered" >'' }</span>: IGenerateRequest) {
     return useQuery({
         queryKey: [type, { page, query }],
         queryFn: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >g</span>enerateRequest({ type, page, query }),</span>
     })
 }
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >generateRequestById({</span> type, id }: any) {
+export async function <span class="fstat-no" title="function not covered" >generateRequestById({</span> type, id }: IGenerateRequestById) {
     const { data } = <span class="cstat-no" title="statement not covered" >await api.get(`${type}/${id}`);</span>
 <span class="cstat-no" title="statement not covered" >    return data;</span>
 }
 &nbsp;
-export function useGenerateRequestById({ type = <span class="branch-0 cbranch-no" title="branch not covered" >'people', i</span>d }: any) {
+export function useGenerateRequestById({ type = <span class="branch-0 cbranch-no" title="branch not covered" >'people', i</span>d }: IGenerateRequestById) {
 &nbsp;
     return useQuery({
         queryKey: [type, id],
@@ -182,17 +227,17 @@ export function useGenerateRequestById({ type = <span class="branch-0 cbranch-no
     })
 }
 &nbsp;
-export function generateRequestByUrl (url: any) {
+export function generateRequestByUrl (url: string) {
     return axios.get(url);
 }
 &nbsp;
-export async function getAllResidents({ residents }: any) {
+export async function getAllResidents({ residents }: IGetAllResidents) {
     const responses = await Promise.all(residents.map((url : string) =&gt; generateRequestByUrl(url)));
     const data = responses.map(response =&gt; response.data);
     return data;
 }
 &nbsp;
-export function useGetAllResidents({ residents }: any) {
+export function useGetAllResidents({ residents }: IGetAllResidents) {
     return useQuery({
         queryKey: ['residents', {residents}],
         queryFn: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >g</span>etAllResidents({ residents: residents }),</span>
@@ -205,7 +250,7 @@ export function useGetAllResidents({ residents }: any) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-12T00:40:01.235Z
+                at 2023-05-12T04:11:52.661Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -7,41 +7,7 @@ import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import BoyIcon from '@mui/icons-material/Boy';
-
-
-const getRandomColor = () => {
-    const colors = [
-        'red',
-        'blue',
-        'green',
-        'yellow',
-        'orange',
-        'purple'];
-    const random = Math.floor(Math.random() * colors.length);
-    return colors[random];
-};
-
-const convertDate = (date: string) => {
-    const newDate = new Date(date);
-    return newDate.toDateString();
-};
-
-const generateDescription = (data: any) => {
-    const description = [];
-    if (data.birth_year) {
-        description.push(`Birth Year: ${data.birth_year}`);
-    }
-    if (data.model) {
-        description.push(`Model: ${data.model}`);
-    }
-    if (data.classification) {
-        description.push(`Classification: ${data.classification}`);
-    }
-    if (data.terrain) {
-        description.push(`Terrain: ${data.terrain}`);
-    }
-    return description;
-}
+import { convertDate, generateDescription, getRandomColor } from '../utils/functions';
 
 export const CardElement = ({ data }: any) => {
     return (
@@ -127,14 +93,6 @@ const CardComponent = ({ data, type = 'people' }:any) => {
         </Link>
 );
 };
-
-{/* <Card className={`${classes.card} col-span-1 flex flex-col mx-auto`}>
-                <CardContent className={classes.cardContent}>
-                <Typography variant="h5" component="h2">
-                    {data.name}
-                </Typography>
-                </CardContent>
-            </Card> */}
 
 export default CardComponent;
 

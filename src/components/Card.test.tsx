@@ -15,6 +15,5 @@ describe('Card', () => {
         render(<CardComponent data={mockData} />);
         expect(screen.getByText(/Birth Year:/i)).toBeDefined();
         expect(screen.getByText(/19BBY/i)).toBeDefined();
-        // expect(screen.getAllByText(/Starships:/i)).toBeDefined();    });
     });
 });

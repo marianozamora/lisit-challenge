@@ -25,7 +25,7 @@ interface EntityProps {
 export const withFetch = (WrappedComponent: any) => {
     return  (props:Props) => {
         const id =  useParams();
-        const generalId = id[`${props.type}Id`];
+        const generalId = id[`${props.type}Id`] || '';
         const navigate = useNavigate();
 
         const {data, isLoading, error} = useGenerateRequestById(
@@ -33,7 +33,7 @@ export const withFetch = (WrappedComponent: any) => {
 
         useEffect(() => {
             if (error) {
-                navigate('/404');
+                console.log('/404');
             }
         }, [generalId]);
 

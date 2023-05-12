@@ -78,6 +78,9 @@ devDependencies:
   eslint-plugin-react-refresh:
     specifier: ^0.3.5
     version: 0.3.5(eslint@8.40.0)
+  istanbul-badges-readme:
+    specifier: ^1.8.5
+    version: 1.8.5
   jest:
     specifier: ^29.5.0
     version: 29.5.0
@@ -3291,6 +3294,11 @@ packages:
 
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+    dev: true
+
+  /istanbul-badges-readme@1.8.5:
+    resolution: {integrity: sha512-VEh90ofuufPZIbLeDF2g14wpe0sebhirG0xHooYKpNPYOkGXm6y+HJFotQqIzCg0NmbCnlKnOPL1B2oxG7/piA==}
+    hasBin: true
     dev: true
 
   /istanbul-lib-coverage@3.2.0:

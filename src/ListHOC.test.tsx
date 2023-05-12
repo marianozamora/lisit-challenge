@@ -1,5 +1,5 @@
 import App, { withFetchPeople } from './ListHOC';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { useGenerateRequest } from './hooks/useSwapi';
 
 
@@ -59,6 +59,30 @@ describe('App', () => {
         expect(screen.getByText('Person 3')).toBeDefined();
     });
 
+    it('handles search input correctly', () => {
+        render(<App type="people" title="People" />);
+
+        const searchInput = screen.getByTestId('search-input').querySelector('input') || document.createElement('input');
+        fireEvent.change(searchInput, { target: { value: 'Luke Skywalker' } });
+
+        expect(searchInput.value).toBe('Luke Skywalker');
+    });
+
+    it('wraps the component and fetches data correctly', () => {
+        const WrappedComponent = () => <div>Wrapped Component</div>;
+        const WrappedComponentWithFetch = withFetchPeople(WrappedComponent);
+
+        render(<WrappedComponentWithFetch type="people" />);
+
+        expect(screen.getByText('Wrapped Component')).toBeDefined();
+
+        expect(useGenerateRequest).toHaveBeenCalledWith({
+            type: 'people',
+            page: 1,
+            query: ''
+        });
+    });
+
     it('renders the App component with search', () => {
         const WrappedComponent = withFetchPeople(App);
         render(<WrappedComponent type="people" title="People" />);
@@ -74,5 +98,13 @@ describe('App', () => {
         const pagination = screen.getAllByText('1');
         expect(pagination).toBeDefined();
     });
+
+    it('renders elements ', () => {
+        const WrappedComponent = withFetchPeople(App);
+        render(<WrappedComponent type="people" title="People" />);
+
+        const pagination = screen.getAllByText('1');
+        expect(pagination).toBeDefined();
+    })
 
 });

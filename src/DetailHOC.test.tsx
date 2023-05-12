@@ -26,7 +26,7 @@ describe('withFetch', () => {
     beforeEach(() => {
         useGenerateRequestById({
             type: 'people',
-            id: 1,
+            id: '1',
         })
     });
     it('should render the component with the correct props', () => {
