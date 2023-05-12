@@ -7,8 +7,23 @@ import { Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 
 import Card from '../src/components/Card';
-const withFetch = (WrappedComponent:any) => {
-    return  (props:any) => {
+
+interface Props {
+    type: string;
+    title: string;
+}
+
+interface EntityProps {
+    data?: any;
+    isLoading?: boolean;
+    navigate?: any;
+    title?: string;
+    type?: string;
+    isError?: any;
+}
+
+export const withFetch = (WrappedComponent: any) => {
+    return  (props:Props) => {
         const id =  useParams();
         const generalId = id[`${props.type}Id`];
         const navigate = useNavigate();
@@ -33,6 +48,7 @@ const withFetch = (WrappedComponent:any) => {
         );
     };
 };
+
 export function formatString(str : string) {
     const words = str.split('_');
     const capitalizedWords = words.map((word ) => word.charAt(0).toUpperCase() + word.slice(1));
@@ -40,7 +56,7 @@ export function formatString(str : string) {
     return formattedString;
 }
 
-const Entity = ({ data, isLoading, navigate, title, type, isError }: any) => {
+const Entity = ({ data, isLoading, navigate, title, type, isError }: EntityProps) => {
     let data2;
     if (type === 'planets' && data !== undefined && data.residents.length > 0) {
         data2 = useGetAllResidents({ residents: data.residents });

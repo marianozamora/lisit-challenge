@@ -3,11 +3,24 @@ import { useQuery } from '@tanstack/react-query';
 import {
     useGenerateRequest,
     useGenerateRequestById,
+    generateRequestByUrl,
+    getAllResidents,
+    useGetAllResidents,
 } from './useSwapi';
-vi.mock('axios');
-vi.mock('@tanstack/react-query');
 
-describe('Your Module', () => {
+
+import axios from 'axios';
+
+vi.mock('axios');
+vi.mock('@tanstack/react-query',
+    () => ({
+        useQuery: vi.fn().mockImplementation(() => ({ data: {} })),
+    })
+);
+vi.mock('../api/swapi');
+
+
+describe('use Swapi Methods', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
@@ -33,4 +46,77 @@ describe('Your Module', () => {
             });
         });
     });
+
+    describe('generateRequestByUrl', () => {
+    it('should make a GET request with the provided URL', async () => {
+        const expectedData = {
+            id: '1',
+            name: 'Luke Skywalker',
+            height: '172',
+        };
+        const url = 'https://example.com/api/data';
+
+        const axiosGetSpy = vi.spyOn(axios, 'get');
+
+
+        axiosGetSpy.mockResolvedValue({ data: expectedData });
+
+        const response = await generateRequestByUrl(url);
+
+        expect(axiosGetSpy).toHaveBeenCalledWith(url);
+        expect(response.data).toEqual(expectedData);
+        axiosGetSpy.mockRestore();
+    });
+    });
+
+    describe('getAllResidents', () => {
+        it('should fetch data for all residents', async () => {
+            const residents = ['https://example.com/api/resident/1', 'https://example.com/api/resident/2'];
+            const expectedData = [{
+                id: '1',
+                name: 'Luke Skywalker',
+                height: '172',
+                residents: ['https://example.com/api/resident/1', 'https://example.com/api/resident/2'],
+            }, {
+                id: '2',
+                name: 'C-3PO',
+                height: '167',
+                residents: ['https://example.com/api/resident/1', 'https://example.com/api/resident/2'],
+            }];
+
+            const axiosGetMock = vi.spyOn(axios, 'get');
+            axiosGetMock.mockImplementation((url) => {
+            const residentId = url.split('/').pop(); // Extract resident ID from the URL
+            const residentData = expectedData.find((data) => data.id === residentId);
+            return Promise.resolve({ data: residentData });
+            });
+
+            const data = await getAllResidents({ residents });
+
+            expect(axiosGetMock).toHaveBeenCalledTimes(residents.length);
+            expect(data).toEqual(expectedData);
+
+            axiosGetMock.mockRestore();
+        });
+    });
+    describe('useGetAllResidents', () => {
+        it('should call useQuery with correct queryKey and queryFn', () => {
+            const residents = ['https://example.com/api/resident/1', 'https://example.com/api/resident/2'];
+
+            renderHook(() => useGetAllResidents({ residents }));
+
+            expect(useQuery).toHaveBeenCalledWith({
+                queryKey: ['residents', { residents }],
+                queryFn: expect.any(Function),
+            });
+        });
+    });
+
 });
+
+
+
+
+
+
+

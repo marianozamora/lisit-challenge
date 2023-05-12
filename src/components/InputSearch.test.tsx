@@ -1,24 +1,17 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import InputSearch from './InputSearch';
 
-test('renders input search component and handles input change and submit', () => {
-    const onChange = vi.fn();
+describe('InputSearch', () => {
+    it('should call the onChange handler with the entered search term on form submission', () => {
+        const mockOnChange = vi.fn();
+        render(<InputSearch onChange={mockOnChange} />);
 
-    render(<InputSearch
-        onChange={onChange}
+        const inputElement = screen.getByPlaceholderText('Search');
+        const searchButton = screen.getByText('Buscar');
 
-    />);
+        fireEvent.change(inputElement, { target: { value: 'test' } });
+        fireEvent.click(searchButton);
 
-    const searchInput = screen.getByPlaceholderText('Search');
-    expect(searchInput).toBeDefined();
-
-    // fireEvent.change(searchInput, { target: { value: 'test' } });
-    // expect(searchInput).toBe('test');
-   // expect(onChange).toHaveBeenCalledWith('test');
-
-    // const searchButton = screen.getByRole('button', { name: 'Buscar' });
-    // expect(searchButton).toBeDefined();
-
-    // fireEvent.click(searchButton);
-    // expect(onChange).toHaveBeenCalledTimes(2);
+        expect(mockOnChange).toHaveBeenCalledWith('test');
+    });
 });

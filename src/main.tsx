@@ -5,26 +5,52 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import queryClient from './queryClient';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-import People from './components/People';
-import Planets from './components/Planets';
-import Starships from './components/Starship';
-import DetailPeople from './components/DetailPeople';
-import DetailPlanet from './components/DetailPlanet';
-import DetailStarship from './components/DetailStarship';
 import ErrorPage from './components/ErrorPage.tsx';
 import { Layout } from './components/Layout';
+import ListHOC from "./ListHOC";
+import DetailHOC from './DetailHOC';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/"
       errorElement={<ErrorPage />}
       element={<Layout />} >
-      <Route index  element={<People />} />
-      <Route path="planets" element={<Planets />} />
-      <Route path="starships" element={<Starships />} />
-      <Route path="people/:peopleId" element={<DetailPeople />} />
-      <Route path="planets/:planetsId" element={<DetailPlanet />} />
-      <Route path="starships/:starshipsId" element={<DetailStarship />} />
+      <Route index element={
+          <ListHOC
+              title='People List!!'
+              type='people'
+          />
+      } />
+      <Route path="planets" element={
+          <ListHOC
+          title='Planets Here!'
+          type='planets'
+          />
+      } />
+      <Route path="starships" element={
+          <ListHOC
+          title='Starships Here!!'
+          type='starships'
+          />
+      } />
+      <Route path="people/:peopleId" element={
+          <DetailHOC
+          title='People Detail!'
+          type='people'
+          />
+      } />
+      <Route path="planets/:planetsId" element={
+        <DetailHOC
+          title='Planet Detail'
+          type='planets'
+        />
+      } />
+      <Route path="starships/:starshipsId" element={
+        <DetailHOC
+          title='Starship Detail'
+          type='starships'
+        />
+      } />
     </Route>
   )
 )
