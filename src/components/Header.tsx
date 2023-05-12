@@ -35,18 +35,17 @@ export default function Header(props: Props) {
         </Typography>
         </Link>
         <Divider />
-        <List>
+            <List
+                className='text-center'
+            >
                 {navItems.map((item) => (
                         <ListItem key={item}  disablePadding>
-                            <ListItemButton
-                                onClick={
-                                () => {
-                                        return generateLink(item)
-                                    }
-                                }
-                                sx={{ textAlign: 'center' }}>
-                        <ListItemText primary={item} />
-                        </ListItemButton>
+                        <Link
+                            className='text-black w-full text-center mb-2'
+                                to={generateLink(item)}
+                            >
+                            {item}
+                            </Link>
                         </ListItem>
             ))}
         </List>
@@ -75,7 +74,7 @@ export default function Header(props: Props) {
                 variant="h5"
                 component="div"
                 className="text-white "
-                sx={{ display: { xs: 'none', sm: 'block' } }}
+                sx={{ display: { sm: 'block' } }}
                 >
                 Nerds Fundation
                         </Typography>

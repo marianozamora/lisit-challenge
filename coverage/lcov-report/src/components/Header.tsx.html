@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.47% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/19</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>6/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.11% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -176,8 +176,7 @@
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a>
-<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,10 +199,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,11 +215,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -328,18 +326,17 @@ export default function Header(props: Props) {
         &lt;/Typography&gt;
         &lt;/Link&gt;
         &lt;Divider /&gt;
-        &lt;List&gt;
+            &lt;List
+                className='text-center'
+            &gt;
                 {navItems.map((item) =&gt; (
                         &lt;ListItem key={item}  disablePadding&gt;
-                            &lt;ListItemButton
-                                onClick={
-<span class="fstat-no" title="function not covered" >                                () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                                        return generateLink(item)</span>
-                                    }
-                                }
-                                sx={{ textAlign: 'center' }}&gt;
-                        &lt;ListItemText primary={item} /&gt;
-                        &lt;/ListItemButton&gt;
+                        &lt;Link
+                            className='text-black w-full text-center mb-2'
+                                to={generateLink(item)}
+                            &gt;
+                            {item}
+                            &lt;/Link&gt;
                         &lt;/ListItem&gt;
             ))}
         &lt;/List&gt;
@@ -368,7 +365,7 @@ export default function Header(props: Props) {
                 variant="h5"
                 component="div"
                 className="text-white "
-                sx={{ display: { xs: 'none', sm: 'block' } }}
+                sx={{ display: { sm: 'block' } }}
                 &gt;
                 Nerds Fundation
                         &lt;/Typography&gt;
@@ -389,11 +386,11 @@ export default function Header(props: Props) {
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
                 ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
+                    keepMounted: true,
                 }}
                 sx={{
-                display: { xs: 'block', sm: 'none' },
-                '&amp; .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    display: { xs: 'block', sm: 'none' },
+                    '&amp; .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                 }}
             &gt;
                 {drawer}
@@ -412,7 +409,7 @@ export default function Header(props: Props) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-12T04:11:52.661Z
+                at 2023-05-12T11:32:09.114Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
