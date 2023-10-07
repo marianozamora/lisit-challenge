@@ -43,7 +43,7 @@
     "istanbul-badges-readme": "^1.8.5",
     "jest": "^29.5.0",
     "jsdom": "^22.0.0",
-    "postcss": "^8.4.23",
+    "postcss": "^8.4.31",
     "react-router-dom": "^6.11.1",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.4",
